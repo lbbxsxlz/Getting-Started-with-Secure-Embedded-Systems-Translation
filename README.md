@@ -12,3 +12,8 @@
 访问英文原文请点击[Here](https://link.springer.com/content/pdf/10.1007/978-1-4842-7789-8.pdf)
 
 书中代码示例见[repo](https://github.com/WyliodrinEmbeddedIoT/getting-started-with-secure-embedded-systems)
+
+## 章节
+
+[第一章 嵌入式系统与架构](C01-第一章-嵌入式系统与架构.md)
+
