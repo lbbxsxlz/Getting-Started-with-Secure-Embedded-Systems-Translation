@@ -417,3 +417,15 @@ Tock拥有自己的引导加载程序tock-bootloader，以及专门用于执行�
 
 虽然引导加载程序可能具备自我更新能力，但首次刷写引导加载程序时通常需要使用硬件调试器。
 
+### 安全之道
+
+开发和制作应用程序原型的最安全方法是同时使用刷写和编程两种方式。刷写支持调试、灾难恢复以及提供更大的闪存空间，而编程则更适合用于生产环境。
+
+为了充分利用刷写的优势，并借助tockloader软件动态加载应用程序，tockloader可以利用硬件调试器上传内核和应用程序，其操作方式如同通过tock-bootloader对设备进行编程一样。图3-8描述了此方法。
+
+<div align=center><img src=Figures/Chapter-3-Screenshot/Figure-3-8.jpg></img></div>
+<div align=center>图 3-8 利用硬件调试器使用tockloader</div>
+
+Tockloader可以向调试软件，如OpenOCD或jlink，发送命令，并能执行与普通引导加载程序大致相同的任务。唯一的缺点是它无法自动检测设备；必须手动指定要使用的调试软件以及需要处理的开发板。
+
+这是我们将用于micro:bit v2和Raspberry Pi Pico的方法。不过需要注意的是，对于Raspberry Pi Pico，我们必须使用标准的Raspberry Pi开发板作为编程器，因为Pico本身并未集成硬件调试器。
