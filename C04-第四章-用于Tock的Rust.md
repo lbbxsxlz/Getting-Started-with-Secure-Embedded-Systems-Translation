@@ -184,3 +184,18 @@ fn main() {
 | 注意 | 使用from方法可以创建新的字符串。只是简单地将s赋值为“...”，则不会生成一个新的字符串，而是生成一个字符串切片（&str）。|
 | ----- | ----- |
 
+一个重要特征是，String类并未实现*Copy*，这意味着在进行赋值时，字符串会采用移动方式。做出这一决定的原因是出于性能考虑，因为复制字符串需要花费一定时间来复制缓冲区。清单4-8对此进行了说明。
+
+清单 4-8 字符串赋值是移动操作
+
+```
+fn main() {
+    let title = String::from("The Title");
+    let the_title = title;
+    // ERROR
+    // title does not own the value anymore
+    println!("title {}", title);
+    println!("the_title {}", the_title);
+}
+```
+
