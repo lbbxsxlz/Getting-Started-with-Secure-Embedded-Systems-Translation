@@ -199,3 +199,15 @@ fn main() {
 }
 ```
 
+在某些情况下，我们可能希望复制字符串，而不是移动它。为此，String实现了Clone特性，该特性提供了clone方法，可用于执行复制操作（清单4-9）。
+
+清单 4-9 Rust中移动字符串
+
+```
+fn main() {
+    let title = String::from("The Title");
+    let the_title = title.clone();
+    println!("title {}", title);
+    println!("the_title {}", the_title);
+}
+```
