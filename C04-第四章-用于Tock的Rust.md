@@ -259,3 +259,26 @@ fn main() {
 }
 ```
 
+在此示例中，一切运行正常，因为u32是基本类型，而基本类型实现了*Copy*特性。现在，让我们看看当使用String代替数字时会发生什么。请记住，String并未实现*Copy*特性。清单4-12声明了一个用于求两个String变量之和的函数。当调用string_sum时，参数的值会被移入函数，且不再可用。这意味着变量a和b无法再被使用。
+
+| 注意 | format!宏的工作原理与println!宏相似，唯一的区别在于它会返回一个包含该文本的新分配的String对象，而不是直接打印格式化的文本。|
+| ----- | ----- |
+
+清单 4-12 字符串参数移动到函数
+
+```
+fn string_sum(a: String, b: String) -> String {
+    format!("{}{}",a, b)
+}
+
+fn main() {
+    let a = String::from("The");
+    let b = String::from(" Title");
+    let s = string_sum(a, b);
+    println!("sum {}", s);
+    // ERROR
+    // the value has been moved to string_sum
+    println!("a {}", a);
+}
+```
+
