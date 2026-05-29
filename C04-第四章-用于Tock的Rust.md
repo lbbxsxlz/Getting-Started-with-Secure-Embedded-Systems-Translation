@@ -376,3 +376,26 @@ fn main() {
 | ----- | ----- |
 
 我们将首先通过几个C语言示例，同时指出一些内存分配方面的问题。
+
+#### 函数参数与返回值
+
+第一个示例如清单4-16所示。我们有一个（外部）函数without_first_word，它返回一个指向字符串（char*）的指针，该字符串表示参数s中存储的句子，但不包含第一个单词。
+
+清单 4-16 C语言中谁负责释放返回值的问题
+
+```
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+char * without_first_word (char *s);
+
+int main ()
+{
+    char * s = strdup ("We love Rust");
+    char *wfw = without_first_word (s);
+    // free (s); <-- before printf ?
+    printf ("%s\n", wfw);
+    // free (wfw); <-- after printf ?
+}
+```
+
