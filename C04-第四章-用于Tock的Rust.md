@@ -415,3 +415,20 @@ char * without_first_word (char *s) {
     return &s[pos];
 }
 ```
+
+第二种变体如清单4-18所示。返回值是原始值的副本（新分配的）。这意味着在函数返回后，初始值s可以随时被释放。与之前的版本不同，在这种情况下，返回值wfw在不再使用后也必须被释放，以避免内存泄漏。
+
+清单 4-18 例子2：返回值是C语言中原始值s的副本
+
+```
+char * without_first_word (char *s) {
+    int pos = 0;
+    for (unsigned int i=0; i < strlen (s); i++) {
+        if (s[i] != ' ') pos = pos + 1;
+        else break;
+    }
+    return strdup (&s[pos]);
+}
+```
+
+关于第二个问题，即函数返回后是否会保留指针以备后续使用，虽然仅凭函数名无法断定，但最有可能的情况是，函数返回后不会保留指向变量值s的指针。我们稍后会给出另一个无法由此推断出的例子。
