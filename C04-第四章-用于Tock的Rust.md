@@ -456,3 +456,22 @@ fn main() {
 要回答“谁负责内存释放”这个问题，Rust会检查生命周期注解。如果函数的输出（返回值）与某个输入参数具有相同的生命周期注解，那么显然只需对该输入参数进行内存释放。此外，只有当函数的输出值不再被使用时，该输入参数才会被安全地释放。
 
 让我们再看一个涉及函数参数的例子（清单4-20）。我们定义了一个函数，该函数将一个String切片追加到另一个String上，并返回该String的切片。该函数为所有输入参数和输出都使用了相同的生命周期注解。如果仔细观察，这可能并非最佳方案。虽然该函数的返回值确实是一个切片，但它实际上是对第一个参数s的引用，与第二个参数n毫无关系。由于我们为s和n这两个参数定义了相同的生命周期，Rust编译器将不允许我们在释放函数返回值之前释放n。更直观地说，在main函数内部，即使title只是s1的引用且与s2毫无关联，我们也必须先释放title才能释放s2。
+
+清单 4-20 追加String切片到String
+
+```
+fn append <'a>(s: &'a mut String, n: &'a str) -> &'a str {
+    s.push_str(n);
+    s
+}
+
+fn main() {
+    let mut s1 = String::from("ip");
+    let s2 = String::from(" workshop");
+    let title = append(&mut s1, &s2);
+    // let t1 = s1; equivalent of free(s1)
+    let t2 = s2; equivalent of free(s2)
+    println!("{}", title);
+}
+```
+
