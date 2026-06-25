@@ -510,3 +510,34 @@ fn ex<'a>(&'a p) -> (&'a p1, &'a p2);
 fn ex(&self, &p1) -> (&p1, &p2);
 fn ex<'a, 'b>(&'a self, &'b p1) -> (&'a p1, &'a p2);
 ```
+
+## 泛型与特质对象
+
+最常用的编程技术之一是面向对象编程（OOP）。它使开发人员能够复用已经编写的代码或其变体。面向对象编程的两大主要优势是继承和多态。继承使开发人员能够减少代码量并复用已编写的代码，而多态则允许开发人员在类似结构（更准确地说，是对象）之间进行互换。
+
+### 一种继承
+
+Rust不支持继承。这是有意为之的设计选择。与继承结构体相比，Rust更倾向于使用结构体组合。清单4-23提供了一个用Java编写的示例，其中MicroBit继承自Device。
+
+清单 4-23 Java继承示例
+
+```
+class Device {
+    String mcu;
+    int pins;
+
+    int getPinsCount () {
+        return this.pins;
+}
+
+    void setPin (int pin, int value) {
+        // ...
+    }
+}
+
+class MicroBit extends Device {
+    int leds;
+}
+```
+
+
