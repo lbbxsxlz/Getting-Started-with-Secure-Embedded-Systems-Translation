@@ -540,4 +540,39 @@ class MicroBit extends Device {
 }
 ```
 
+在Rust中，我们无法继承结构体，但可以像清单4-24所示那样将它们组合起来。
+
+清单 4-24 Rust组合示例
+
+```
+struct Device {
+    mcu: String,
+    pins: usize
+}
+
+impl Device {
+    pub fn get_pins_count(&self) -> usize {
+        self.pins
+    }
+
+    pub fn set_pin(&self, pin: usize, value: usize) {
+        // ...
+    }
+}
+
+struct MicroBit {
+    device: Device,
+    leds: usize
+}
+
+impl MicroBit {
+    pub fn get_pins_count(&self) -> usize {
+        self.device.get_pins_count ()
+    }
+
+    pub fn set_pin(&self, pin: usize, value: usize) {
+        self.device.set_pin(pin, value);
+    }
+}
+```
 
