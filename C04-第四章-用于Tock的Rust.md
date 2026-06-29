@@ -576,3 +576,10 @@ impl MicroBit {
 }
 ```
 
+与Python类似、但与Java不同的是，Rust要求函数必须定义self参数。在Java中，编译器会自动将其作为对当前对象的引用添加进去；而在Rust中，定义self有三种方式：self、&self和&mut self。这三种写法含义不同，适用于不同的场景：
+
+    • 当需要消耗调用函数时所作用的变量 value 的值时，使用 self。换句话说，如果我们调用 value.use(...)，变量 value 将不再可用，因为它已被移至函数 use 中；
+    • 当以不可变的方式借用调用函数时所作用的变量 value 的值时，使用 &self。这意味着，如果我们调用 value.use(...)，函数 use 可以以只读模式访问该值；
+    • &mut self 相当于 Python 中的 self 和 Java 中的 this。在 Rust 中，这意味着如果我们调用 value.use(...)，函数 use 将以读写模式借用该值。
+
+虽然这看起来可能有些奇怪，甚至有悖常理，但Rust所做的无非是向开发者揭示C++和Java中发生的情况。每当一个类继承另一个类时，C++和Java编译器都会在底层将其转换为组合。
